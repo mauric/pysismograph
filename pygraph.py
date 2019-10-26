@@ -9,7 +9,7 @@ import multiprocessing as mp
 #from statistics import mean
 #import pymysql
 import datetime
-#plt.style.use('fivethirtyeight')  #TODO CHANGE STYLE 
+#plt.style.use('fivethirtyeight')   
 plt.style.use('seaborn')  #TODO CHANGE STYLE 
 
 #-----------------------------------#
@@ -196,29 +196,36 @@ def main():
   # set up animation
   fig, (ax1, ax2) = plt.subplots(2, 1)
   
-  a0, = ax1.plot([], [], label = "Aceleracion")
-  
-  a4, = ax2.plot([], [], label = "Frecuencia")
-  
+  a0, = ax1.plot([], [])
+  a4, = ax2.plot([], [])
+
   ax = [a0, a4]
 
+  ax1.set_title('Aceleracion de la mesa')
+  ax1.set_xlabel('tiempo [s]')
+  ax1.set_ylabel('m/s')
+  fig.suptitle('IMERIS Mesvib -live-', fontsize=16)
   ax1.set_ylim(-1.5, 1.5)
   ax1.grid(color='b', linestyle='-', linewidth=0.25)
+
+  ax2.set_title('Frecuencia')
+  ax2.set_xlabel('Hz')
+  ax2.set_ylabel('|F(s)|')
+
   ax2.grid(color='b', linestyle='-', linewidth=0.25)
   ax2.set_ylim(0, 50)
   ax2.set_xlim(0, 125) 
- 
+ #
 
   try: 
-  	anim = animation.FuncAnimation(fig, analogPlot.update, 
+   anim = animation.FuncAnimation(fig, analogPlot.update, 
                                  fargs=(a0, a4,), 
                                  interval=100)
-
-  	# show plot
-  	plt.legend(loc="upper right")
-  	plt.show()
   
-  	# clean up
+   # show plot
+   plt.show()
+ 
+   # clean up
   except:
   	pass
 
